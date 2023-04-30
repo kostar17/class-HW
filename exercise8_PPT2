@@ -1,0 +1,114 @@
+class Siha {
+  Siha() {
+    x = random(0,width);
+    y = random(0,height);
+    d = random(50,100);
+    vx = random(-3,3); vy = random(-2,2);
+  };
+  Siha(float a, float b) {
+    x = a; y = b;
+    d = 50;
+    vx = vy = 0;
+  };
+  float x, y, d, vx, vy;
+  void act(){
+    x += vx;  y += vy;
+    if(x>width) x=0;
+    if(x<0) x=width;
+    if(y>height) y=0;
+    if(y<0) y = height;
+  }
+  void Life() {
+    fill(255);
+    ellipse(x, y, d, d/3*2);
+    circle(x-d/5, y-d/6, d/5);
+    arc(x+d/5, y-d/6, d/5, d/5, PI, 2*PI);
+    arc(x, y, d*2/3, d/5, 0, PI);
+  }
+}
+class punleu {
+  // constructor
+  punleu() {
+    x = random(width);
+    y = random(height);
+    vx = random(-3,3);
+    vy = random(-2,2);
+    aa = new Siha[2];
+    for(int i=0;i<2;i++){
+      aa[i] = new Siha(x+i*200-100,y);
+    }
+    bb= new character(x,y);
+    
+  }
+  // member data
+  float x, y, vx, vy;
+  Siha [] aa;
+  character bb;
+  // member function
+  void update(){
+   x += vx;
+   y += vy;
+   if(x<0 || x>width) vx = - vx;
+   if(y<0 || y>height) vy = - vy;   
+   for(int i=0;i<2;i++){
+      aa[i].x =x+i*240-120;
+      aa[i].y = y;
+   }
+   bb.x=x; bb.y=y-50;
+  }
+  void punleuShow() {
+    for(int i=0;i<2;i++) aa[i].Life();
+    fill(0, 0, 255);
+    ellipse(x, y+30, 200, 210);
+    fill(255);
+    // eye
+    ellipse(x-40, y, 50, 50);
+    ellipse(x+30, y, 50, 50);
+    // black eye
+    fill(0);
+    ellipse(x-40, y, 20, 20);
+    ellipse(x+30, y, 20, 20);
+    fill(0, 255, 0);
+    //mouth
+    arc(x, y+75, 80, 50, 0, 3.14);
+    fill(0, 255, 0);
+    bb.picture();
+  }
+}
+class character{
+  character(float p, float q){
+  x=p; y=q; d=random(50,100);
+  vx=random(-3,3); vy=random(-3,3);
+  }
+  float x,y,d, vx, vy;
+  void moveA(){
+    x+=vx; y+=vy;
+    if(x<0||x>width) vx*=-1;
+    if(y<0||y>height) vy*=-1;
+  }
+  void picture(){
+    fill(255,40,200);
+    circle(x,y,d);
+    fill(255);
+    circle(x-50*d/100,y-30*d/100,d/5);
+    circle(x+50*d/100,y-30*d/100,d/5);
+    circle(x-25*d/100,y-25*d/100,d/5);
+    circle(x+25*d/100,y-25*d/100,d/5);
+    circle(x,y+20*d/100,d/4);
+  }
+}
+punleu [] aa;
+void setup() {
+  size(800, 600);
+  aa = new punleu[5];
+  for (int i=0; i<5; i++) {
+    aa[i] = new punleu();
+  }
+}
+void draw(){
+  background(0,255,255);  
+  for (int i=0; i<5; i++) {
+    aa[i].update();
+    aa[i].punleuShow();
+  }  
+}
