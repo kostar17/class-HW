@@ -1,0 +1,118 @@
+class Siha {
+  Siha() {
+    x = random(0,width);
+    y = random(0,height);
+    d = random(100,200);
+    vx = random(-3,3); vy = random(-2,2);
+  };
+  Siha(float p, float q, float r) {
+    x = p;     y = q;     d = r;
+    vx = random(-3,3); vy = random(-2,2);
+  }
+  float x, y, d, vx, vy;
+  void act(){
+    x += vx;  y += vy;
+    if(x>width) vx*=-1;
+    if(x<0) vx*=-1;
+    if(y>height) vy*=-1;
+    if(y<0) vy*=-1;
+  }
+  void Life() {
+    fill(255);
+    ellipse(x, y, d, d/3*2);
+    circle(x-d/5, y-d/6, d/5);
+    arc(x+d/5, y-d/6, d/5, d/5, PI, 2*PI);
+    arc(x, y, d*2/3, d/5, 0, PI);
+  }
+}
+Siha [] aa;
+punleu [] pp;
+character[] kk;
+void setup() {
+  size(800, 600);
+  aa = new Siha[5];
+  for (int i=0; i<5; i++) {
+    aa[i] = new Siha();
+  }
+  pp = new punleu[3];
+  for (int i=0; i<3; i++) {
+    pp[i] = new punleu(random(width),random(height));
+  }
+  kk = new character[4];
+  for (int i=0; i<4; i++){
+    kk[i]=new character(random(width), random(height));
+  }
+}
+void draw(){
+  background(0,255,255);
+  for (int i=0; i<3; i++) {
+    pp[i].update();
+    pp[i].punleuShow();
+  }  
+  for (int i=0; i<5; i++) {
+    aa[i].act();
+    aa[i].Life();
+  }  
+  for (int i=0; i<4; i++){
+    kk[i].picture();
+    kk[i].moveA();
+  }
+}
+class punleu {
+  // constructor
+  punleu(float a, float b) {
+    x = a;
+    y = b;
+    vx = random(-3,3);
+    vy = random(-2,2);
+  }
+  // member data
+  float x, y, vx, vy;
+  // member function
+  void update(){
+   x += vx;
+   y += vy;
+   if(x<0 || x>width) vx = - vx;
+   if(y<0 || y>height) vy = - vy;
+  }
+  void punleuShow() {
+    fill(0, 0, 255);
+    ellipse(x, y+30, 200, 210);
+    fill(255);
+    // eye
+    ellipse(x-40, y, 50, 50);
+    ellipse(x+30, y, 50, 50);
+    // black eye
+    fill(0);
+    ellipse(x-40, y, 20, 20);
+    ellipse(x+30, y, 20, 20);
+    fill(0, 255, 0);
+    //mouth
+    arc(x, y+75, 80, 50, 0, 3.14);
+    fill(0, 255, 0);
+  }
+}
+class character{
+  character(float p, float q){
+  x=p; y=q; d=random(50,100);
+  vx=random(-3,3); vy=random(-3,3);
+  }
+  float x,y,d, vx, vy;
+  void moveA(){
+    x+=vx; y+=vy;
+    if(x<0||x>width) vx*=-1;
+    if(y<0||y>height) vy*=-1;
+  }
+  void picture(){
+    fill(255,40,200);
+    circle(x,y,d);
+    fill(255);
+    circle(x-50*d/100,y-30*d/100,d/5);
+    circle(x+50*d/100,y-30*d/100,d/5);
+    circle(x-25*d/100,y-25*d/100,d/5);
+    circle(x+25*d/100,y-25*d/100,d/5);
+    circle(x,y+20*d/100,d/4);
+  }
+}
+    
+  
