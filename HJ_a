@@ -1,0 +1,28 @@
+class HJ{
+  HJ(){}
+  HJ(float p, float q, float r){
+    a=p; b=q; s=r;
+    vx=random(-3,9); vy=random(-4,8);
+  }
+  
+  float a,b,s,vx,vy;
+  void ghost(){
+  
+   noStroke();
+  fill(226,185,255);
+  circle(a,b,2*s);
+  square(a-s,b,2*s);
+  circle(a-3*s/4,b+2*s,s/2);
+  circle(a-s/4,b+2*s,s/2);
+  circle(a+s/4,b+2*s,s/2);
+  circle(a+3*s/4,b+2*s,s/2);
+  fill(255,255,220);
+  circle(a-s/2,b,2*s/3);
+  circle(a+s/2,b,2*s/3);
+  }
+  
+  void HJact(){
+    a+=vx; b+=vy;
+    if(a<0||a>width)vx*=-1;
+    if(b<0||b>height)vy*=-1;
+  }
