@@ -1,0 +1,57 @@
+class JW {
+  JW(float xx, float yy, float dd) {
+    x = xx;
+    y = yy;
+    d = dd;
+    vx = random(-3, 3);
+    vy = random(-4, 4);
+  }
+  
+  float x, y, d, vx, vy;
+
+  void JiwonM() {
+    // face
+    fill(#73B791);
+    circle(x, y, d); 
+    // eyes
+    fill(#FFFFFF);
+    circle(x-d/800*60, y-d/800*60, d/5); 
+    circle(x+d/800*60, y+d/800*60, d/5);
+    fill(#050505);
+    circle(x-d/800*60, y-d/800*60, d/10); 
+    circle(x+d/800*60, y+d/800*60, d/10);
+    keyPressed();
+  }
+  void Jiwon() {
+    // face
+    fill(#73B791);
+    circle(x, y, d); 
+    // eyes
+    fill(#FFFFFF);
+    circle(x-d/800*60, y-d/800*60, d/5); 
+    circle(x+d/800*60, y+d/800*60, d/5);
+    fill(#050505);
+    circle(x-d/800*60, y-d/800*60, d/10); 
+    circle(x+d/800*60, y+d/800*60, d/10);
+  }
+  void keyPressed() {
+    if (key == 'd') x += 18;
+    else if (key == 'a') x -= 18;
+    else if (key == 'w') y -= 18;
+    else if (key == 's') y += 18;
+  }
+  void act() {
+    x += vx;
+    y += vy;
+    if (x > width) vx *= -1;
+    else if (x < 0) vx *= -1;
+    else if (y > height) vy *= -1;
+    else if (y < 0) vy *= -1;
+  }
+  void actM() {
+    if (x < 0) x = width;
+    else if (x > width) x = 1;
+    else if (y < 0) y = height;
+    else if(y > height) y = 0;
+  }
+}
