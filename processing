@@ -1,0 +1,32 @@
+JW[] aa;
+HB[] bb;
+HJ[] cc;
+void setup() {
+  size(1500, 900);
+  float xx = random(10, width-10);
+  float yy = random(10, height-10);
+  aa = new JW[2];
+  bb = new HB[2];
+  cc = new HJ[2];
+  aa[0] = new JW(xx, yy, 150);
+  aa[1] = new JW(xx, yy, 150);
+  bb[0] = new HB(xx, yy, 100);
+  bb[1] = new HB(xx, yy, 100);
+  cc[0] = new HJ(xx, yy, 80);
+  cc[1] = new HJ(xx, yy, 80);
+}
+
+void draw() {
+  background(#93CDFF);
+  aa[0].JiwonM();
+  aa[0].actM();
+  aa[1].Jiwon();
+  aa[1].act();
+  bb[0].hanbyeol();
+  bb[0].hanact();
+  bb[1].hanbyeolR();
+  cc[0].ghost();
+  cc[0].HJact();
+  cc[1].ghost();
+  cc[1].HJact();
+}
